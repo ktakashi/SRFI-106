@@ -56,23 +56,19 @@ implementation dependent layer for their program.
 </p>
 
 <p>
-This document specifies a uniform interface to write socket programming. That
-should make it easier to write portable programs that need to send or receive
-data from their socket.
+This document specifies high and middle range of socket interfaces which are
+commonly used to write socket programming. That should make it easier to write
+portable programs that need to send or receive data from their socket.
 </p>
 
 <H1>Specification</H1>
 
 <div>
   All procedures defined in this SRFI may raise an error when the procedure
-  failed because of the connection problem or other socket related problem. If
-  the implementation supports SRFI-35, it should raise an condition named
-  <code>&socket</code> or subcondition of it. Following is the The hierarchy of
-  the condition;
-  <pre>
-&error
-  + &socket
-  </pre>
+  failed because of the connection problem or other socket related problem. This
+  document does not specify which condition should be raised. The end of this
+  section, I put a table described which condition will be raised by some of
+  the Scheme implementations.
 </div>
 
 Names defined in this document:
@@ -351,6 +347,20 @@ The following variable should be defined but it highly depends on the platform.
   <li><a name="SHUT_WR">SHUT_WR</a></li>
   <li><a name="SHUT_RDWR">SHUT_RDWR</a></li>
 </ul>
+
+<h3>Conditions</h3>
+
+These are some of conditions raised when networking error occurs.
+
+<table>
+  <tr><th>Implementation name</th><th>Condition type</th></tr>
+  <tr><td>Gauche</td><td>&lt;system-error&gt;</td></tr>
+  <tr><td>Larceny</td><td>no error, returns #f</td></tr>
+  <tr><td>Mosh</td><td>&i/o-read</td></tr>
+  <tr><td>Racket</td><td>exn:fail:network</td></tr>
+  <tr><td>Sagittarius</td><td>&i/o</td></tr>
+  <tr><td>Ypsilon</td><td>&i/o</td></tr>
+</table>
 
 <H1>Example</H1>
 
