@@ -40,13 +40,6 @@ Takashi Kato
 
 This document specifies basic socket interfaces.
 
-<H1>Issues</H1>
-
-<ul>
-  <li>The constants variables' names are taken from POSIX, should this be renamed?</li>
-  <li>At least how many constant variables should this SRFI support?</li>
-</ul>
-
 <H1>Rationale</H1>
 
 <p>
@@ -398,7 +391,7 @@ The following implementation is written in R6RS.
 
 <h2>Interface layer</h2>
 <pre>
-(library (socket)
+(library (srfi :106 socket)
     (export make-client-socket make-server-socket
        	    socket? socket-port call-with-socket
             socket-merge-flags socket-parge-flags
@@ -409,13 +402,13 @@ The following implementation is written in R6RS.
        	    AI_V4MAPPED AI_ALL AI_ADDRCONFIG
             IPPROTO_IP IPPROTO_TCP IPPROTO_UDP
        	    SHUT_RD SHUT_WR SHUT_RDWR)
-    (import (socket impl)))
+    (import (srfi :106 socket impl)))
 </pre>
 
 <h2>Implementation dependent layer</h2>
 <h3>For Ypsilon</h3>
 <pre>
-(library (socket impl)
+(library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
@@ -446,7 +439,7 @@ The following implementation is written in R6RS.
 
 <h3>For Mosh</h3>
 <pre>
-(library (socket impl)
+(library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
@@ -465,7 +458,7 @@ The following implementation is written in R6RS.
 
 <h3>For Sagittarius</h3>
 <pre>
-(library (socket impl)
+(library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
@@ -494,7 +487,7 @@ The following implementation is written in R6RS.
 
 <h3>For others</h3>
 <pre>
-(library (socket impl)
+(library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
