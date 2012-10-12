@@ -134,6 +134,7 @@ Names defined in this document:
       <a href="#*ai-canoname*">*ai-canoname*</a> <a href="#*ai-numerichost*">*ai-numerichost*</a>
       <a href="#*ai-v4mapped*">*ai-v4mapped*</a> <a href="#*ai-all*">*ai-all*</a> <a href="#*ai-addrconfig*">*ai-addrconfig*</a>
       <a href="#*ipproto-ip*">*ipproto-ip*</a> <a href="#*ipproto-tcp*">*ipproto-tcp*</a> <a href="#*ipproto-udp*">*ipproto-udp*</a>
+      <a href="*msg-peek*">*msg-peek*</a> <a href="*msg-oob*">*msg-oob*</a> <a href="*msg-waitall*">*msg-waitall*</a>
       <a href="#*shut-rd*">*shut-rd*</a> <a href="#*shut-wr*">*shut-wr*</a> <a href="#*shut-rdwr*">*shut-rdwr*</a>
     </pre>
   </dd>
@@ -240,8 +241,8 @@ Names defined in this document:
     </div>
     <div>
       <var>flags</var> may specify the procedure's behaviour.<br>
-      If the <var>flags</var> is omitted, the default value must be following
-      form;<br>
+      If the <var>flags</var> is omitted, the default value must be the result
+      of following form;<br>
       <code>(message-type none)</code>
     </div>
   </dd>
@@ -256,9 +257,9 @@ Names defined in this document:
       returned, it means the peer connection is closed.
     </div>
     <div>
-      <var>flags</var> may specify the procedure's behaviour.
-      If the <var>flags</var> is omitted, the default value must be following
-      form;<br>
+      <var>flags</var> may specify the procedure's behaviour.<br>
+      If the <var>flags</var> is omitted, the default value must be the result
+      of following form;<br>
       <code>(message-type none)</code>
     </div>
   </dd>
