@@ -579,7 +579,7 @@ These are some of conditions raised when networking error occurs.
           p
           (lambda (p)
             (let lp2 ((r (get-line-from-binary-port p)))
-              (put-bytevector p (string->utf8 (string-append r "\r\n"))
+              (put-bytevector p (string-&gt;utf8 (string-append r "\r\n"))
               (lp2 (get-line-from-binary-port p))))))))))
 (server-run)
 
@@ -590,7 +590,7 @@ These are some of conditions raised when networking error occurs.
                                           (socket-domain stream)
                                           (address-info v4mapped addrconfig)
                                           (ip-protocol ip)))
-(socket-send client-socket (string-&lt;utf8 "hello\r\n"))
+(socket-send client-socket (string-&gt;utf8 "hello\r\n"))
 (socket-recv client-socket (string-length "hello\r\n"))
 </pre>
 
