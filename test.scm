@@ -3,7 +3,11 @@
 (test-begin "(run-socket-test)")
 ;; start echo server
 
-(let ((client-socket (make-client-socket "localhost" "5000")))
+(let ((client-socket (make-client-socket "localhost" "5000"
+					 (address-family inet)
+					 (socket-domain stream)
+					 (address-info v4mapped addrconfig)
+					 (ip-protocol ip))))
   (test-assert "socket?"(socket? client-socket))
   (test-equal "raw socket-send"
 	      (+ (string-length "hello") 2) ;; for \r\n
@@ -32,5 +36,13 @@
       (test-equal "get-line" "put from text port" (get-line text-port))
       ;; end test
       (put-string text-port "test-end\r\n"))))
+
+(test-equal "shutdown-method" *shut-rd* (shutdown-method read))
+(test-equal "shutdown-method" *shut-wr* (shutdown-method write))
+(test-equal "shutdown-method" *shut-rdwr* (shutdown-method read write))
+(test-error "shutdown-method(error duplicate)" values
+	    (shutdown-method read write read))
+(test-error "shutdown-method(error unknown)" values
+	    (shutdown-method read&write))
 
 (test-end)

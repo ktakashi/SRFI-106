@@ -114,6 +114,15 @@ Names defined in this document:
     </pre>
   </dd>
 
+  <dt>Abstraction layer for flags</dt>
+  <dd>
+    <pre>
+      <a href="#address-info">address-info</a> <a href="#address-family">address-family</a>
+      <a href="#socket-domain">socket-domain</a> <a href="#ip-protocol">ip-protocol</a>
+      <a href="#shutdown-method">shutdown-method</a>
+    </pre>
+  </dd>
+
   <dt>Flag operations</dt>
   <dd>
     <pre>
@@ -125,12 +134,12 @@ Names defined in this document:
   <dt>Constant values</dt>
   <dd>
     <pre>
-      <a href="#address-family/unspecified">address-family/unspecified</a> <a href="#address-family/ineternet">address-family/ineternet</a> <a href="#address-family/ineternet6">address-family/ineternet6</a>
-      <a href="#socket-domain/stream">socket-domain/stream</a> <a href="#socket-domain/datagram">socket-domain/datagram</a>
-      <a href="#address-info/passive">address-info/passive</a> <a href="#address-info/canonical-name">address-info/canonical-name</a> <a href="#address-info/numeric-host">address-info/numeric-host</a>
-      <a href="#address-info/ipv4-mapped">address-info/ipv4-mapped</a> <a href="#address-info/all">address-info/all</a> <a href="#address-info/address-config">address-info/address-config</a>
-      <a href="#ip-protocol/ip">ip-protocol/ip</a> <a href="#ip-protocol/tcp">ip-protocol/tcp</a> <a href="#ip-protocol/udp">ip-protocol/udp</a>
-      <a href="#shutdown-method/read">shutdown-method/read</a> <a href="#shutdown-method/write">shutdown-method/write</a> <a href="#shutdown-method/read&write">shutdown-method/read&write</a>
+      <a href="#*af-unspec*">*af-unspec*</a> <a href="#*af-inet*">*af-inet*</a> <a href="#*af-inet6*">*af-inet6*</a>
+      <a href="#*sock-stream*">*sock-stream*</a> <a href="#*sock-dgram*">*sock-dgram*</a>
+      <a href="#*ai-passive*">*ai-passive*</a> <a href="#*ai-canoname*">*ai-canoname*</a> <a href="#*ai-numerichost*">*ai-numerichost*</a>
+      <a href="#*ai-v4mapped*">*ai-v4mapped*</a> <a href="#*ai-all*">*ai-all*</a> <a href="#*ai-addrconfig*">*ai-addrconfig*</a>
+      <a href="#*ipproto-ip*">*ipproto-ip*</a> <a href="#*ipproto-tcp*">*ipproto-tcp*</a> <a href="#*ipproto-udp*">*ipproto-udp*</a>
+      <a href="#*shut-rd*">*shut-rd*</a> <a href="#*shut-wr*">*shut-wr*</a> <a href="#*shut-rdwr*">*shut-rdwr*</a>
     </pre>
   </dd>
 </dl>
@@ -170,13 +179,13 @@ Names defined in this document:
       used as default.
       <dl>
 	<dt><var>ai-family</var></dt>
-	<dd><code>address-family/ineternet</code></dd>
+	<dd><code>*af-inet*</code></dd>
 	<dt><var>ai-socktype</var></dt>
-	<dd><code>socket-domain/stream</code></dd>
+	<dd><code>*sock-stream*</code></dd>
 	<dt><var>ai-flags</var></dt>
-	<dd><code>(socket-merge-flags address-info/ipv4-mapped address-info/address-config)</code></dd>
+	<dd><code>(socket-merge-flags *ai-v4mapped* *ai-addrconfig*)</code></dd>
 	<dt><var>ai-protocol</var></dt>
-	<dd><code>ip-protocol/ip</code></dd>
+	<dd><code>*ipproto-ip*</code></dd>
       </dl>
     </div>
   </dd>
@@ -196,11 +205,11 @@ Names defined in this document:
       used as default.
       <dl>
 	<dt><var>ai-family</var></dt>
-	<dd><code>address-family/ineternet</code></dd>
+	<dd><code>*af-inet*</code></dd>
 	<dt><var>ai-socktype</var></dt>
-	<dd><code>socket-domain/stream</code></dd>
+	<dd><code>*sock-stream*</code></dd>
 	<dt><var>ai-protocol</var></dt>
-	<dd><code>ip-protocol/ip</code></dd>
+	<dd><code>*ipproto-ip*</code></dd>
       </dl>
     </div>
   </dd>
@@ -263,14 +272,14 @@ Names defined in this document:
   </dt>
   <dd class="proc-desc">
     <div>
-      Shutdows a socket.
+      Shutdowns a socket.
     </div>
     <div>
       <var>how</var> must be one of the following constants;
       <ul>
-	<li>shutdown-method/read</li>
-	<li>shutdown-method/write</li>
-	<li>shutdown-method/read&write</li>
+	<li>*shut-rd*</li>
+	<li>*shut-wr*</li>
+	<li>*shut-rdwr*</li>
       </ul>
     </div>
   </dd>
@@ -342,23 +351,23 @@ Names defined in this document:
 
 The following variable should be defined but it highly depends on the platform.
 <ul>
-  <li><a name="address-family/unspecified">address-family/unspecified</a></li>
-  <li><a name="address-family/ineternet">address-family/ineternet</a></li>
-  <li><a name="address-family/ineternet6">address-family/ineternet6</a></li>
-  <li><a name="socket-domain/stream">socket-domain/stream</a></li>
-  <li><a name="socket-domain/datagram">socket-domain/datagram</a></li>
-  <li><a name="address-info/passive">address-info/passive</a></li>
-  <li><a name="address-info/canonical-name">address-info/canonical-name</a></li>
-  <li><a name="address-info/numeric-host">address-info/numeric-host</a></li>
-  <li><a name="address-info/ipv4-mapped">address-info/ipv4-mapped</a></li>
-  <li><a name="address-info/all">address-info/all</a></li>
-  <li><a name="address-info/address-config">address-info/address-config</a></li>
-  <li><a name="ip-protocol/ip">ip-protocol/ip</a></li>
-  <li><a name="ip-protocol/tcp">ip-protocol/tcp</a></li>
-  <li><a name="ip-protocol/udp">ip-protocol/udp</a></li>
-  <li><a name="shutdown-method/read">shutdown-method/read</a></li>
-  <li><a name="shutdown-method/write">shutdown-method/write</a></li>
-  <li><a name="shutdown-method/read&write">shutdown-method/read&write</a></li>
+  <li><a name="*af-unspec*">*af-unspec*</a></li>
+  <li><a name="*af-inet*">*af-inet*</a></li>
+  <li><a name="*af-inet6*">*af-inet6*</a></li>
+  <li><a name="*sock-stream*">*sock-stream*</a></li>
+  <li><a name="*sock-dgram*">*sock-dgram*</a></li>
+  <li><a name="*ai-passive*">*ai-passive*</a></li>
+  <li><a name="*ai-canoname*">*ai-canoname*</a></li>
+  <li><a name="*ai-numerichost*">*ai-numerichost*</a></li>
+  <li><a name="*ai-v4mapped*">*ai-v4mapped*</a></li>
+  <li><a name="*ai-all*">*ai-all*</a></li>
+  <li><a name="*ai-addrconfig*">*ai-addrconfig*</a></li>
+  <li><a name="*ipproto-ip*">*ipproto-ip*</a></li>
+  <li><a name="*ipproto-tcp*">*ipproto-tcp*</a></li>
+  <li><a name="*ipproto-udp*">*ipproto-udp*</a></li>
+  <li><a name="*shut-rd*">*shut-rd*</a></li>
+  <li><a name="*shut-wr*">*shut-wr*</a></li>
+  <li><a name="*shut-rdwr*">*shut-rdwr*</a></li>
 </ul>
 
 <h3>Conditions</h3>
@@ -416,17 +425,87 @@ The following implementation is written in R6RS.
 	    socket? socket-port call-with-socket
 	    socket-merge-flags socket-parge-flags
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
-	    address-family/unspecified address-family/ineternet
-	    address-family/ineternet6
-	    socket-domain/stream socket-domain/datagram
-	    address-info/passive address-info/canonical-name
-	    address-info/numeric-host address-info/ipv4-mapped
-	    address-info/all address-info/address-config
-	    ip-protocol/ip ip-protocol/tcp ip-protocol/udp
-	    shutdown-method/read shutdown-method/write
-	    shutdown-method/read&write)
-    (import (srfi :106 socket impl)))
+	    *af-unspec* *af-inet* *af-inet6*
+	    *sock-stream* *sock-dgram*
+	    *ai-passive* *ai-canoname* *ai-numerichost*
+	    *ai-v4mapped* *ai-all* *ai-addrconfig*
+	    *ipproto-ip* *ipproto-tcp* *ipproto-udp*
+	    *shut-rd* *shut-wr* *shut-rdwr*
+	    address-family socket-domain address-info
+	    ip-protocol shutdown-method)
+    (import (rnrs) (srfi :106 socket impl))
+
+  (define %address-family `((inet    ,*af-inet*)
+			    (inet6   ,*af-inet6*)
+			    (unspec  ,*af-unspec*)))
+  (define %address-info `((passive   	,*ai-passive*)
+			  (canoname  	,*ai-canoname*)
+			  (numerichost  ,*ai-numerichost*)
+			  (v4mapped     ,*ai-v4mapped*)
+			  (all          ,*ai-all*)
+			  (addrconfig   ,*ai-addrconfig*)))
+
+  (define %ip-protocol `((ip  ,*ipproto-ip*)
+			 (tcp ,*ipproto-tcp*)
+			 (udp ,*ipproto-udp*)))
+
+  (define %socket-domain `((stream   ,*sock-stream*)
+			   (datagram ,*sock-dgram*)))
+
+  (define (lookup who sets name)
+    (cond ((assq name sets) => cadr)
+	  (else (assertion-violation who "no name defined" name))))
+
+  (define-syntax address-family
+    (syntax-rules ()
+      ((_ name)
+       (lookup 'address-family %address-family 'name))))
+
+  (define-syntax address-info
+    (syntax-rules ()
+      ((_ names ...)
+       (apply socket-merge-flags 
+	      (map (lambda (name) (lookup 'address-info %address-info name))
+		   '(names ...))))))
+
+  (define-syntax socket-domain
+    (syntax-rules ()
+      ((_ name)
+       (lookup 'socket-domain %socket-domain 'name))))
+
+  (define-syntax ip-protocol
+    (syntax-rules ()
+      ((_ name)
+       (lookup 'ip-protocol %ip-protocol 'name))))
+
+  (define (%proper-method methods)
+    (define allowed-methods '(read write))
+    (define (check-methods methods)
+      (let loop ((methods methods) (seen '()))
+	(cond ((null? methods))
+	      ((memq (car methods) allowed-methods)
+	       => (lambda (m)
+		    (if (memq (car m) seen)
+			(assertion-violation 'shutdown-method
+					     "duplicate method" m)
+			(loop (cdr methods) (cons (car m) seen)))))
+	      (else (assertion-violation 'shutdown-method
+					 "unknown method" (car methods))))))
+    (check-methods methods)
+    (if (null? (cdr methods))
+	(case (car methods)
+	  ((read) *shut-rd*)
+	  ((write) *shut-wr*))
+	*shut-rdwr*))
+
+  (define-syntax shutdown-method
+    (syntax-rules ()
+      ((_ methods ...)
+       (%proper-method '(methods ...)))))
+
+  )
 </pre>
+
 
 <h2>Implementation dependent layer</h2>
 <h3>For Ypsilon</h3>
@@ -437,23 +516,23 @@ The following implementation is written in R6RS.
             (rename (bitwise-ior socket-merge-flags)
                     (bitwise-xor socket-parge-flags))
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
-	    (rename (AF_UNSPEC address-family/unspecified)
-		    (AF_INET   address-family/ineternet)
-		    (AF_INET6  address-family/ineternet6))
-	    (rename (SOCK_STREAM socket-domain/stream)
-		    (SOCK_DGRAM  socket-domain/datagram))
-	    (rename (AI_PASSIVE     address-info/passive)
-		    (AI_CANONNAME   address-info/canonical-name)
-		    (AI_NUMERICHOST address-info/numeric-host)
-		    (AI_V4MAPPED    address-info/ipv4-mapped)
-		    (AI_ALL         address-info/all)
-		    (AI_ADDRCONFIG  address-info/address-config))
-            (rename (IPPROTO_IP  ip-protocol/ip)
-		    (IPPROTO_TCP ip-protocol/tcp)
-		    (IPPROTO_UDP ip-protocol/udp))
-	    (rename (SHUT_RD   shutdown-method/read)
-		    (SHUT_WR   shutdown-method/write)
-		    (SHUT_RDWR shutdown-method/read&write)))
+	    (rename (AF_UNSPEC *af-unspec*)
+		    (AF_INET   *af-inet*)
+		    (AF_INET6  *af-inet6*))
+	    (rename (SOCK_STREAM *sock-stream*)
+		    (SOCK_DGRAM  *sock-dgram*))
+	    (rename (AI_PASSIVE     *ai-passive*)
+		    (AI_CANONNAME   *ai-canoname*)
+		    (AI_NUMERICHOST *ai-numerichost*)
+		    (AI_V4MAPPED    *ai-v4mapped*)
+		    (AI_ALL         *ai-all*)
+		    (AI_ADDRCONFIG  *ai-addrconfig*))
+            (rename (IPPROTO_IP  *ipproto-ip*)
+		    (IPPROTO_TCP *ipproto-tcp*)
+		    (IPPROTO_UDP *ipproto-udp*))
+	    (rename (SHUT_RD   *shut-rd*)
+		    (SHUT_WR   *shut-wr*)
+		    (SHUT_RDWR *shut-rdwr*)))
     (import (rnrs) (rename (ypsilon socket)
 			   (socket-send %socket-send)	
 			   (socket-recv %socket-recv)))
@@ -480,23 +559,23 @@ The following implementation is written in R6RS.
             (rename (bitwise-ior socket-merge-flags)
                     (bitwise-xor socket-parge-flags))
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
-	    (rename (AF_UNSPEC address-family/unspecified)
-		    (AF_INET   address-family/ineternet)
-		    (AF_INET6  address-family/ineternet6))
-	    (rename (SOCK_STREAM socket-domain/stream)
-		    (SOCK_DGRAM  socket-domain/datagram))
-	    (rename (AI_PASSIVE     address-info/passive)
-		    (AI_CANONNAME   address-info/canonical-name)
-		    (AI_NUMERICHOST address-info/numeric-host)
-		    (AI_V4MAPPED    address-info/ipv4-mapped)
-		    (AI_ALL         address-info/all)
-		    (AI_ADDRCONFIG  address-info/address-config))
-            (rename (IPPROTO_IP  ip-protocol/ip)
-		    (IPPROTO_TCP ip-protocol/tcp)
-		    (IPPROTO_UDP ip-protocol/udp))
-	    (rename (SHUT_RD   shutdown-method/read)
-		    (SHUT_WR   shutdown-method/write)
-		    (SHUT_RDWR shutdown-method/read&write)))
+	    (rename (AF_UNSPEC *af-unspec*)
+		    (AF_INET   *af-inet*)
+		    (AF_INET6  *af-inet6*))
+	    (rename (SOCK_STREAM *sock-stream*)
+		    (SOCK_DGRAM  *sock-dgram*))
+	    (rename (AI_PASSIVE     *ai-passive*)
+		    (AI_CANONNAME   *ai-canoname*)
+		    (AI_NUMERICHOST *ai-numerichost*)
+		    (AI_V4MAPPED    *ai-v4mapped*)
+		    (AI_ALL         *ai-all*)
+		    (AI_ADDRCONFIG  *ai-addrconfig*))
+            (rename (IPPROTO_IP  *ipproto-ip*)
+		    (IPPROTO_TCP *ipproto-tcp*)
+		    (IPPROTO_UDP *ipproto-udp*))
+	    (rename (SHUT_RD   *shut-rd*)
+		    (SHUT_WR   *shut-wr*)
+		    (SHUT_RDWR *shut-rdwr*)))
     (import (rnrs) (mosh socket))
   (define IPPROTO_IP 0)
   )
@@ -510,23 +589,23 @@ The following implementation is written in R6RS.
             (rename (bitwise-ior socket-merge-flags)
                     (bitwise-xor socket-parge-flags))
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
-	    (rename (AF_UNSPEC address-family/unspecified)
-		    (AF_INET   address-family/ineternet)
-		    (AF_INET6  address-family/ineternet6))
-	    (rename (SOCK_STREAM socket-domain/stream)
-		    (SOCK_DGRAM  socket-domain/datagram))
-	    (rename (AI_PASSIVE     address-info/passive)
-		    (AI_CANONNAME   address-info/canonical-name)
-		    (AI_NUMERICHOST address-info/numeric-host)
-		    (AI_V4MAPPED    address-info/ipv4-mapped)
-		    (AI_ALL         address-info/all)
-		    (AI_ADDRCONFIG  address-info/address-config))
-            (rename (IPPROTO_IP  ip-protocol/ip)
-		    (IPPROTO_TCP ip-protocol/tcp)
-		    (IPPROTO_UDP ip-protocol/udp))
-	    (rename (SHUT_RD   shutdown-method/read)
-		    (SHUT_WR   shutdown-method/write)
-		    (SHUT_RDWR shutdown-method/read&write)))
+	    (rename (AF_UNSPEC *af-unspec*)
+		    (AF_INET   *af-inet*)
+		    (AF_INET6  *af-inet6*))
+	    (rename (SOCK_STREAM *sock-stream*)
+		    (SOCK_DGRAM  *sock-dgram*))
+	    (rename (AI_PASSIVE     *ai-passive*)
+		    (AI_CANONNAME   *ai-canoname*)
+		    (AI_NUMERICHOST *ai-numerichost*)
+		    (AI_V4MAPPED    *ai-v4mapped*)
+		    (AI_ALL         *ai-all*)
+		    (AI_ADDRCONFIG  *ai-addrconfig*))
+            (rename (IPPROTO_IP  *ipproto-ip*)
+		    (IPPROTO_TCP *ipproto-tcp*)
+		    (IPPROTO_UDP *ipproto-udp*))
+	    (rename (SHUT_RD   *shut-rd*)
+		    (SHUT_WR   *shut-wr*)
+		    (SHUT_RDWR *shut-rdwr*)))
     (import (rnrs) (rename (sagittarius socket)
 			   (socket-send %socket-send)
 			   (socket-recv %socket-recv)))
@@ -545,27 +624,27 @@ The following implementation is written in R6RS.
 
 <h3>For others</h3>
 <pre>
-(library (socket impl)
+(library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
 	    socket? socket-port call-with-socket
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
-	    (rename (AF_UNSPEC address-family/unspecified)
-		    (AF_INET   address-family/ineternet)
-		    (AF_INET6  address-family/ineternet6))
-	    (rename (SOCK_STREAM socket-domain/stream)
-		    (SOCK_DGRAM  socket-domain/datagram))
-	    (rename (AI_PASSIVE     address-info/passive)
-		    (AI_CANONNAME   address-info/canonical-name)
-		    (AI_NUMERICHOST address-info/numeric-host)
-		    (AI_V4MAPPED    address-info/ipv4-mapped)
-		    (AI_ALL         address-info/all)
-		    (AI_ADDRCONFIG  address-info/address-config))
-            (rename (IPPROTO_IP  ip-protocol/ip)
-		    (IPPROTO_TCP ip-protocol/tcp)
-		    (IPPROTO_UDP ip-protocol/udp))
-	    (rename (SHUT_RD   shutdown-method/read)
-		    (SHUT_WR   shutdown-method/write)
-		    (SHUT_RDWR shutdown-method/read&write)))
+	    (rename (AF_UNSPEC *af-unspec*)
+		    (AF_INET   *af-inet*)
+		    (AF_INET6  *af-inet6*))
+	    (rename (SOCK_STREAM *sock-stream*)
+		    (SOCK_DGRAM  *sock-dgram*))
+	    (rename (AI_PASSIVE     *ai-passive*)
+		    (AI_CANONNAME   *ai-canoname*)
+		    (AI_NUMERICHOST *ai-numerichost*)
+		    (AI_V4MAPPED    *ai-v4mapped*)
+		    (AI_ALL         *ai-all*)
+		    (AI_ADDRCONFIG  *ai-addrconfig*))
+            (rename (IPPROTO_IP  *ipproto-ip*)
+		    (IPPROTO_TCP *ipproto-tcp*)
+		    (IPPROTO_UDP *ipproto-udp*))
+	    (rename (SHUT_RD   *shut-rd*)
+		    (SHUT_WR   *shut-wr*)
+		    (SHUT_RDWR *shut-rdwr*)))
     (import (rnrs))
 
   (define-syntax define-unsupported
