@@ -6,7 +6,7 @@
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
 	    *af-unspec* *af-inet* *af-inet6*
 	    *sock-stream* *sock-dgram*
-	    *ai-passive* *ai-canoname* *ai-numerichost*
+	    *ai-canoname* *ai-numerichost*
 	    *ai-v4mapped* *ai-all* *ai-addrconfig*
 	    *ipproto-ip* *ipproto-tcp* *ipproto-udp*
 	    *shut-rd* *shut-wr* *shut-rdwr*
@@ -17,8 +17,7 @@
   (define %address-family `((inet    ,*af-inet*)
 			    (inet6   ,*af-inet6*)
 			    (unspec  ,*af-unspec*)))
-  (define %address-info `((passive   	,*ai-passive*)
-			  (canoname  	,*ai-canoname*)
+  (define %address-info `((canoname  	,*ai-canoname*)
 			  (numerichost  ,*ai-numerichost*)
 			  (v4mapped     ,*ai-v4mapped*)
 			  (all          ,*ai-all*)
