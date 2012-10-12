@@ -61,6 +61,10 @@
   (define-unsupported IPPROTO_TCP)
   (define-unsupported IPPROTO_UDP)
 
+  (define-unsupported MSG_OOB)
+  (define-unsupported MSG_PEEK)
+  (define-unsupported MSG_WAITALL)
+
   (define-unsupported SHUT_RD)
   (define-unsupported SHUT_WR)
   (define-unsupported SHUT_RDWR)

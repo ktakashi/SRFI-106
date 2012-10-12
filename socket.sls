@@ -11,7 +11,7 @@
 	    *ipproto-ip* *ipproto-tcp* *ipproto-udp*
 	    *shut-rd* *shut-wr* *shut-rdwr*
 	    address-family socket-domain address-info
-	    ip-protocol shutdown-method)
+	    ip-protocol message-type shutdown-method)
     (import (rnrs) (socket impl))
 
   (define %address-family `((inet    ,*af-inet*)
@@ -29,6 +29,11 @@
 
   (define %socket-domain `((stream   ,*sock-stream*)
 			   (datagram ,*sock-dgram*)))
+
+  (define %message-types `((none 0)
+			   (peek ,*msg-peek*)
+			   (oob  ,*msg-oob*)
+			   (wait-all ,*msg-waitall*)))
 
   (define (lookup who sets name)
     (cond ((assq name sets) => cadr)
@@ -55,6 +60,13 @@
     (syntax-rules ()
       ((_ name)
        (lookup 'ip-protocol %ip-protocol 'name))))
+
+  (define-syntax message-type
+    (syntax-rules ()
+      ((_ names ...)
+       (apply socket-merge-flags 
+	      (map (lambda (name) (lookup 'message-type %message-types name))
+		   '(names ...))))))
 
   (define (%proper-method methods)
     (define allowed-methods '(read write))

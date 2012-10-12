@@ -11,10 +11,12 @@
   (test-assert "socket?"(socket? client-socket))
   (test-equal "raw socket-send"
 	      (+ (string-length "hello") 2) ;; for \r\n
-	      (socket-send client-socket (string->utf8 "hello\r\n")))
+	      (socket-send client-socket (string->utf8 "hello\r\n")
+			   (message-type none)))
   (test-equal "raw socket-recv"
 	      (string->utf8 "hello\r\n")
-	      (socket-recv client-socket (+ (string-length "hello") 2)))
+	      (socket-recv client-socket (+ (string-length "hello") 2)
+			   (message-type none)))
 
   ;; make port
   (let ((port (socket-port client-socket)))
