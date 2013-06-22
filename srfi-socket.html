@@ -184,6 +184,10 @@ Names defined in this document:
 	<dd><code>*ipproto-ip*</code></dd>
       </dl>
     </div>
+    <div>
+      The created socket may not be closed automatically so it is users'
+      responsibility to close it explicitly.
+    </div>
   </dd>
   <dt class="proc-def">
     <a name="make-server-socket" class="proc-name">make-server-socket</a>
@@ -207,6 +211,10 @@ Names defined in this document:
 	<dt><var>ai-protocol</var></dt>
 	<dd><code>*ipproto-ip*</code></dd>
       </dl>
+    </div>
+    <div>
+      The created socket may not be closed automatically so it is users'
+      responsibility to close it explicitly.
     </div>
   </dd>
   <dt class="proc-def">
@@ -297,12 +305,17 @@ Names defined in this document:
 <dl>
   <dt class="proc-def">
     <a name="socket-port" class="proc-name">socket-port</a>
-    socket -&gt; binary-input/output-port
+    socket [close-socket?] -&gt; binary-input/output-port
   </dt>
   <dd class="proc-desc">
     <div>
       Returns a fresh binary input/output port associated with a
-      <var>socket</var>.
+      <var>socket</var>.      
+    </div>
+    <div>
+      If the optional argument <var>close-socket?</var> is not #f then
+      when port is closing the closing procedure will close the socket. <br />
+      The default value is #f.
     </div>
   </dd>
 </dl>
@@ -662,7 +675,7 @@ The following implementation is written in R6RS.
             *shut-rd* *shut-wr* *shut-rdwr*
             address-family socket-domain address-info
             ip-protocol message-type shutdown-method)
-    (import (rnrs) (srfi :106 socket impl))
+    (import (rnrs) (rename (socket impl) (socket-port %socket-port)))
 
   (define %address-family `((inet    ,*af-inet*)
                             (inet6   ,*af-inet6*)
@@ -742,6 +755,20 @@ The following implementation is written in R6RS.
     (syntax-rules ()
       ((_ methods ...)
        (%proper-method '(methods ...)))))
+
+  (define (socket-port socket . close?)
+    (define (read! bv start count)
+      (let ((r (socket-recv socket count)))
+	(bytevector-copy! r 0 bv start (bytevector-length r))
+	(bytevector-length r)))
+    (define (write! bv start count)
+      (let ((buf (make-bytevector count)))
+	(bytevector-copy! bv start buf 0 count)
+	(socket-send socket buf)))
+    (if (or (null? close?) (not (car close?)))
+	(make-custom-binary-input/output-port 
+	 "socket-port" read! write! #f #f #f)
+	(%socket-port socket)))
 
   )
 </pre>

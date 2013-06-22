@@ -36,8 +36,10 @@
 						       'crlf))))
       (put-string text-port "put from text port\r\n")
       (test-equal "get-line" "put from text port" (get-line text-port))
-      ;; end test
-      (put-string text-port "test-end\r\n"))))
+      (close-port text-port))
+    ;; socket is not closed
+    (socket-send client-socket (string->utf8 "test-end\r\n"))
+    (socket-close client-socket)))
 
 (test-equal "shutdown-method" *shut-rd* (shutdown-method read))
 (test-equal "shutdown-method" *shut-wr* (shutdown-method write))

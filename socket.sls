@@ -12,7 +12,7 @@
 	    *shut-rd* *shut-wr* *shut-rdwr*
 	    address-family socket-domain address-info
 	    ip-protocol message-type shutdown-method)
-    (import (rnrs) (socket impl))
+    (import (rnrs) (rename (socket impl) (socket-port %socket-port)))
 
   (define %address-family `((inet    ,*af-inet*)
 			    (inet6   ,*af-inet6*)
@@ -93,4 +93,17 @@
       ((_ methods ...)
        (%proper-method '(methods ...)))))
 
+  (define (socket-port socket . close?)
+    (define (read! bv start count)
+      (let ((r (socket-recv socket count)))
+	(bytevector-copy! r 0 bv start (bytevector-length r))
+	(bytevector-length r)))
+    (define (write! bv start count)
+      (let ((buf (make-bytevector count)))
+	(bytevector-copy! bv start buf 0 count)
+	(socket-send socket buf)))
+    (if (or (null? close?) (not (car close?)))
+	(make-custom-binary-input/output-port 
+	 "socket-port" read! write! #f #f #f)
+	(%socket-port socket)))
   )
