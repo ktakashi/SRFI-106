@@ -13,16 +13,12 @@
 	    ((#xA) #t) ;; newline
 	    ((#xD) (loop (get-u8 bin))) ;; caridge return
 	    (else (put-u8 out b) (loop (get-u8 bin)))))))))
-  (let ((addr (socket-accept echo-server-socket)))
-    (call-with-socket
-     addr
-     (lambda (sock)
-       (let ((p (socket-port sock)))
-	 (call-with-port
-	  p
-	  (lambda (p)
-	    (let lp2 ((r (get-line-from-binary-port p)))
-	      (unless (and (string? r) (string=? r "test-end"))
-		(put-bytevector p (string->utf8 (string-append r "\r\n")))
-		(lp2 (get-line-from-binary-port p)))))))))))
+  (call-with-socket (socket-accept echo-server-socket)
+    (lambda (sock)
+      (let ((in (socket-input-port sock))
+	    (out (socket-output-port sock)))
+	(let lp2 ((r (get-line-from-binary-port in)))
+	  (unless (string=? r "test-end")
+	    (put-bytevector out (string->utf8 (string-append r "\r\n")))
+	    (lp2 (get-line-from-binary-port in))))))))
 (server-run)

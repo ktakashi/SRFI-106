@@ -103,7 +103,8 @@ Names defined in this document:
   <dt>Port conversion</dt>
   <dd>
     <pre>
-      <a href="#socket-port">socket-port</a>
+      <a href="#socket-input-port">socket-input-port</a>
+      <a href="#socket-input-port">socket-output-port</a>
     </pre>
   </dd>
 
@@ -308,13 +309,17 @@ Names defined in this document:
 <h3>Port conversion</h3>
 <dl>
   <dt class="proc-def">
-    <a name="socket-port" class="proc-name">socket-port</a>
-    socket [close-socket?] -&gt; binary-input/output-port
+    <a name="socket-input-port" class="proc-name">socket-input-port</a>
+    socket [close-socket?] -&gt; binary-input-port
+  </dt>
+  <dt class="proc-def">
+    <a name="socket-output-port" class="proc-name">socket-output-port</a>
+    socket [close-socket?] -&gt; binary-output-port
   </dt>
   <dd class="proc-desc">
     <div>
-      Returns a fresh binary input/output port associated with a
-      <var>socket</var>.      
+      Returns a fresh binary input and output port associated with a
+      <var>socket</var>, respectively.
     </div>
     <div>
       If the optional argument <var>close-socket?</var> is not #f then
@@ -637,17 +642,13 @@ These are some of conditions raised when networking error occurs.
             ((#xA) #t) ;; newline
             ((#xD) (loop (get-u8 bin))) ;; carriage return
             (else (put-u8 out b) (loop (get-u8 bin))))))))
-  (let ((addr (socket-accept echo-server-socket)))
-    (call-with-socket
-     addr
-     (lambda (sock)
-       (let ((p (socket-port sock)))
-         (call-with-port
-          p
-          (lambda (p)
-            (let lp2 ((r (get-line-from-binary-port p)))
-              (put-bytevector p (string-&gt;utf8 (string-append r "\r\n"))
-              (lp2 (get-line-from-binary-port p))))))))))
+  (call-with-socket (socket-accept echo-server-socket)
+    (lambda (sock)
+      (let ((in (socket-input-port sock))
+            (out (socket-output-port sock)))
+        (let lp2 ((r (get-line-from-binary-port in)))
+          (put-bytevector out (string-&lt;utf8 (string-append r "\r\n")))
+          (lp2 (get-line-from-binary-port in)))))))
 (server-run)
 
 ;; simple echo client
@@ -668,7 +669,10 @@ The following implementation is written in R6RS.
 <pre>
 (library (srfi :106 socket)
     (export make-client-socket make-server-socket
-            socket? socket-port call-with-socket
+            socket? 
+            (rename (socket-port socket-input-port)
+                    (socket-port socket-output-port))
+            call-with-socket
             socket-merge-flags socket-parge-flags
             socket-accept socket-send socket-recv socket-shutdown socket-close
             *af-unspec* *af-inet* *af-inet6*
@@ -763,16 +767,16 @@ The following implementation is written in R6RS.
   (define (socket-port socket . close?)
     (define (read! bv start count)
       (let ((r (socket-recv socket count)))
-	(bytevector-copy! r 0 bv start (bytevector-length r))
-	(bytevector-length r)))
+        (bytevector-copy! r 0 bv start (bytevector-length r))
+        (bytevector-length r)))
     (define (write! bv start count)
       (let ((buf (make-bytevector count)))
-	(bytevector-copy! bv start buf 0 count)
-	(socket-send socket buf)))
+        (bytevector-copy! bv start buf 0 count)
+        (socket-send socket buf)))
     (if (or (null? close?) (not (car close?)))
-	(make-custom-binary-input/output-port 
-	 "socket-port" read! write! #f #f #f)
-	(%socket-port socket)))
+        (make-custom-binary-input/output-port 
+         "socket-port" read! write! #f #f #f)
+        (%socket-port socket)))
 
   )
 </pre>
