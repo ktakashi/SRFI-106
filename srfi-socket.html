@@ -310,11 +310,11 @@ Names defined in this document:
 <dl>
   <dt class="proc-def">
     <a name="socket-input-port" class="proc-name">socket-input-port</a>
-    socket [close-socket?] -&gt; binary-input-port
+    socket -&gt; binary-input-port
   </dt>
   <dt class="proc-def">
     <a name="socket-output-port" class="proc-name">socket-output-port</a>
-    socket [close-socket?] -&gt; binary-output-port
+    socket -&gt; binary-output-port
   </dt>
   <dd class="proc-desc">
     <div>
@@ -322,9 +322,7 @@ Names defined in this document:
       <var>socket</var>, respectively.
     </div>
     <div>
-      If the optional argument <var>close-socket?</var> is not #f then
-      when port is closed the underlying socket will be also closed.<br />
-      The default value is #f.
+      The port should not close underlying socket when it's closing.
     </div>
   </dd>
 </dl>
@@ -683,7 +681,7 @@ The following implementation is written in R6RS.
             *shut-rd* *shut-wr* *shut-rdwr*
             address-family socket-domain address-info
             ip-protocol message-type shutdown-method)
-    (import (rnrs) (rename (socket impl) (socket-port %socket-port)))
+    (import (rnrs) (except (socket impl) socket-port))
 
   (define %address-family `((inet    ,*af-inet*)
                             (inet6   ,*af-inet6*)
@@ -764,7 +762,7 @@ The following implementation is written in R6RS.
       ((_ methods ...)
        (%proper-method '(methods ...)))))
 
-  (define (socket-port socket . close?)
+  (define (socket-port socket)
     (define (read! bv start count)
       (let ((r (socket-recv socket count)))
         (bytevector-copy! r 0 bv start (bytevector-length r))
@@ -773,10 +771,8 @@ The following implementation is written in R6RS.
       (let ((buf (make-bytevector count)))
         (bytevector-copy! bv start buf 0 count)
         (socket-send socket buf)))
-    (if (or (null? close?) (not (car close?)))
-        (make-custom-binary-input/output-port 
-         "socket-port" read! write! #f #f #f)
-        (%socket-port socket)))
+    (make-custom-binary-input/output-port 
+         "socket-port" read! write! #f #f #f))
 
   )
 </pre>
