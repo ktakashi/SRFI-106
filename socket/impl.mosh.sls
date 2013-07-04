@@ -3,7 +3,7 @@
     (export make-client-socket make-server-socket
 	    socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-parge-flags))
+                    (bitwise-xor socket-purge-flags))
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
 	    (rename (AF_UNSPEC *af-unspec*)
 		    (AF_INET   *af-inet*)

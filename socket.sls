@@ -5,7 +5,7 @@
 	    (rename (socket-port socket-input-port)
                     (socket-port socket-output-port))
 	    call-with-socket
-	    socket-merge-flags socket-parge-flags
+	    socket-merge-flags socket-purge-flags
 	    socket-accept socket-send socket-recv socket-shutdown socket-close
 	    *af-unspec* *af-inet* *af-inet6*
 	    *sock-stream* *sock-dgram*

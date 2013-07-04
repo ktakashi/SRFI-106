@@ -123,7 +123,7 @@ Names defined in this document:
       <a href="#message-type">message-type</a> <a href="#shutdown-method">shutdown-method</a>
 
       <a href="#socket-merge-flags">socket-merge-flags</a>
-      <a href="#socket-parge-flags">socket-parge-flags</a>
+      <a href="#socket-purge-flags">socket-purge-flags</a>
     </pre>
   </dd>
 
@@ -476,7 +476,7 @@ Names defined in this document:
     Merges given <var>flags</var> and returns a new flag.
   </dd>
   <dt class="proc-def">
-    <a name="socket-parge-flags" class="proc-name">socket-parge-flags</a>
+    <a name="socket-purge-flags" class="proc-name">socket-purge-flags</a>
     base-flag flags ... -&gt; new-flags
   </dt>
   <dd class="proc-desc">
@@ -671,7 +671,7 @@ The following implementation is written in R6RS.
             (rename (socket-port socket-input-port)
                     (socket-port socket-output-port))
             call-with-socket
-            socket-merge-flags socket-parge-flags
+            socket-merge-flags socket-purge-flags
             socket-accept socket-send socket-recv socket-shutdown socket-close
             *af-unspec* *af-inet* *af-inet6*
             *sock-stream* *sock-dgram*
@@ -785,7 +785,7 @@ The following implementation is written in R6RS.
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-parge-flags))
+                    (bitwise-xor socket-purge-flags))
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
@@ -830,7 +830,7 @@ The following implementation is written in R6RS.
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-parge-flags))
+                    (bitwise-xor socket-purge-flags))
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
@@ -865,7 +865,7 @@ The following implementation is written in R6RS.
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
             (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-parge-flags))
+                    (bitwise-xor socket-purge-flags))
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
