@@ -132,7 +132,7 @@ Names defined in this document:
     <pre>
       <a href="#*af-unspec*">*af-unspec*</a> <a href="#*af-inet*">*af-inet*</a> <a href="#*af-inet6*">*af-inet6*</a>
       <a href="#*sock-stream*">*sock-stream*</a> <a href="#*sock-dgram*">*sock-dgram*</a>
-      <a href="#*ai-canoname*">*ai-canoname*</a> <a href="#*ai-numerichost*">*ai-numerichost*</a>
+      <a href="#*ai-canonname*">*ai-canonname*</a> <a href="#*ai-numerichost*">*ai-numerichost*</a>
       <a href="#*ai-v4mapped*">*ai-v4mapped*</a> <a href="#*ai-all*">*ai-all*</a> <a href="#*ai-addrconfig*">*ai-addrconfig*</a>
       <a href="#*ipproto-ip*">*ipproto-ip*</a> <a href="#*ipproto-tcp*">*ipproto-tcp*</a> <a href="#*ipproto-udp*">*ipproto-udp*</a>
       <a href="*msg-peek*">*msg-peek*</a> <a href="*msg-oob*">*msg-oob*</a> <a href="*msg-waitall*">*msg-waitall*</a>
@@ -387,7 +387,7 @@ Names defined in this document:
     described behaviour.    
     <dl>
       <dt><code>canoname</code></dt>
-      <dd>Returns <code>*ai-canoname*</code></dd>
+      <dd>Returns <code>*ai-canonname*</code></dd>
       <dt><code>numerichost</code></dt>
       <dd>Returns <code>*ai-numerichost*</code></dd>
       <dt><code>v4mapped</code></dt>
@@ -533,7 +533,7 @@ All constant variable must be consistent with POSIX's[1] definition.
 
 <h4>Address info</h4>
 <dl>
-  <dt><a name="*ai-canoname*">*ai-canoname*</a></dt>
+  <dt><a name="*ai-canonname*">*ai-canonname*</a></dt>
   <dd>
     This must behave the same as POSIX's <code>AI_CANONNAME</code>.
   </dd>
@@ -684,7 +684,7 @@ The following implementation is written in R6RS.
             socket-accept socket-send socket-recv socket-shutdown socket-close
             *af-unspec* *af-inet* *af-inet6*
             *sock-stream* *sock-dgram*
-            *ai-canoname* *ai-numerichost*
+            *ai-canonname* *ai-numerichost*
             *ai-v4mapped* *ai-all* *ai-addrconfig*
             *ipproto-ip* *ipproto-tcp* *ipproto-udp*
             *shut-rd* *shut-wr* *shut-rdwr*
@@ -695,7 +695,7 @@ The following implementation is written in R6RS.
   (define %address-family `((inet    ,*af-inet*)
                             (inet6   ,*af-inet6*)
                             (unspec  ,*af-unspec*)))
-  (define %address-info `((canoname     ,*ai-canoname*)
+  (define %address-info `((canoname     ,*ai-canonname*)
                           (numerichost  ,*ai-numerichost*)
                           (v4mapped     ,*ai-v4mapped*)
                           (all          ,*ai-all*)
@@ -801,7 +801,7 @@ The following implementation is written in R6RS.
                     (AF_INET6  *af-inet6*))
             (rename (SOCK_STREAM *sock-stream*)
                     (SOCK_DGRAM  *sock-dgram*))
-            (rename (AI_CANONNAME   *ai-canoname*)
+            (rename (AI_CANONNAME   *ai-canonname*)
                     (AI_NUMERICHOST *ai-numerichost*)
                     (AI_V4MAPPED    *ai-v4mapped*)
                     (AI_ALL         *ai-all*)
@@ -846,7 +846,7 @@ The following implementation is written in R6RS.
                     (AF_INET6  *af-inet6*))
             (rename (SOCK_STREAM *sock-stream*)
                     (SOCK_DGRAM  *sock-dgram*))
-            (rename (AI_CANONNAME   *ai-canoname*)
+            (rename (AI_CANONNAME   *ai-canonname*)
                     (AI_NUMERICHOST *ai-numerichost*)
                     (AI_V4MAPPED    *ai-v4mapped*)
                     (AI_ALL         *ai-all*)
@@ -881,7 +881,7 @@ The following implementation is written in R6RS.
                     (AF_INET6  *af-inet6*))
             (rename (SOCK_STREAM *sock-stream*)
                     (SOCK_DGRAM  *sock-dgram*))
-            (rename (AI_CANONNAME   *ai-canoname*)
+            (rename (AI_CANONNAME   *ai-canonname*)
                     (AI_NUMERICHOST *ai-numerichost*)
                     (AI_V4MAPPED    *ai-v4mapped*)
                     (AI_ALL         *ai-all*)
@@ -922,7 +922,7 @@ The following implementation is written in R6RS.
                     (AF_INET6  *af-inet6*))
             (rename (SOCK_STREAM *sock-stream*)
                     (SOCK_DGRAM  *sock-dgram*))
-            (rename (AI_CANONNAME   *ai-canoname*)
+            (rename (AI_CANONNAME   *ai-canonname*)
                     (AI_NUMERICHOST *ai-numerichost*)
                     (AI_V4MAPPED    *ai-v4mapped*)
                     (AI_ALL         *ai-all*)
