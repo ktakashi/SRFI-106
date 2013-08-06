@@ -159,7 +159,7 @@ Names defined in this document:
     node service [ai-family [ai-socktype [ai-flags [ai-protocol]]]] -&gt; socket
   </dt>
   <dd class="proc-desc">
-    <div>Returns a client socket connected to an Internet addres.</div>
+    <div>Returns a client socket connected to an Internet address.</div>
     <div>
       The Internet address is identified by <var>node</var> and
       <var>service</var>. <var>node</var> and <var>service</var> must be string.
@@ -192,7 +192,7 @@ Names defined in this document:
   </dd>
   <dt class="proc-def">
     <a name="make-server-socket" class="proc-name">make-server-socket</a>
-    service [ai-family [ai-socktype [ai-protocol]]] -> socket
+    service [ai-family [ai-socktype [ai-protocol]]] -&gt; socket
   </dt>
   <dd class="proc-desc">
     <div>Returns a server socket waiting for connection.</div>
@@ -235,7 +235,7 @@ Names defined in this document:
   </dt>
   <dd class="proc-desc">
     <div>
-      Wait for an incomming connection request, and returns a fresh connected
+      Wait for an incoming connection request, and returns a fresh connected
       client socket.
     </div>
   </dd>
@@ -715,7 +715,7 @@ The following implementation is written in R6RS.
 
   (define (lookup who sets name)
     (cond ((assq name sets) => cadr)
-          (else (assertion-violation who "no name defined" name))))
+          (else (assertion-violation who "no name defined" name)))
 
   (define-syntax address-family
     (syntax-rules ()
@@ -758,7 +758,7 @@ The following implementation is written in R6RS.
                                              "duplicate method" m)
                         (loop (cdr methods) (cons (car m) seen)))))
               (else (assertion-violation 'shutdown-method
-                                         "unknown method" (car methods))))))
+                                         "unknown method" (car methods)))))
     (check-methods methods)
     (if (null? (cdr methods))
         (case (car methods)
