@@ -784,8 +784,8 @@ The following implementation is written in R6RS.
 (library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
-            (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-purge-flags))
+            (rename (bitwise-ior socket-merge-flags))
+            socket-purge-flags
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
@@ -810,6 +810,10 @@ The following implementation is written in R6RS.
                            (socket-send %socket-send)        
                            (socket-recv %socket-recv)))
 
+  (define (socket-purge-flags base . rest) 
+    (let ((mask* (map (lambda (f) (bitwise-xor -1 f)) rest)))
+      (apply bitwise-and base mask*)))
+
   (define IPPROTO_IP 0)
   (define IPPROTO_TCP 6)
   (define IPPROTO_UDP 17)
@@ -829,8 +833,8 @@ The following implementation is written in R6RS.
 (library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
-            (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-purge-flags))
+            (rename (bitwise-ior socket-merge-flags))
+            socket-purge-flags
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
@@ -852,6 +856,11 @@ The following implementation is written in R6RS.
                     (SHUT_WR   *shut-wr*)
                     (SHUT_RDWR *shut-rdwr*)))
     (import (rnrs) (mosh socket))
+
+  (define (socket-purge-flags base . rest) 
+    (let ((mask* (map (lambda (f) (bitwise-xor -1 f)) rest)))
+      (apply bitwise-and base mask*)))
+
   (define IPPROTO_IP 0)
   (define MSG_OOB 1)
   (define MSG_PEEK 2)
@@ -864,8 +873,8 @@ The following implementation is written in R6RS.
 (library (srfi :106 socket impl)
     (export make-client-socket make-server-socket
             socket? socket-port call-with-socket
-            (rename (bitwise-ior socket-merge-flags)
-                    (bitwise-xor socket-purge-flags))
+            (rename (bitwise-ior socket-merge-flags))
+            socket-purge-flags
             socket-accept socket-send socket-recv socket-shutdown socket-close
             (rename (AF_UNSPEC *af-unspec*)
                     (AF_INET   *af-inet*)
@@ -889,6 +898,10 @@ The following implementation is written in R6RS.
     (import (rnrs) (rename (sagittarius socket)
                            (socket-send %socket-send)
                            (socket-recv %socket-recv)))
+
+  (define (socket-purge-flags base . rest) 
+    (let ((mask* (map (lambda (f) (bitwise-xor -1 f)) rest)))
+      (apply bitwise-and base mask*)))
 
   (define IPPROTO_IP  0)
   (define IPPROTO_TCP 6)
